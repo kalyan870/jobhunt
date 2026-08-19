@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobHunt - Live Software & Hardware Jobs</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">💼</span>
+                    <h1>Job<span class="accent">Hunt</span></h1>
+                </div>
+                <div class="live-badge">
+                    <span class="pulse-dot"></span>
+                    LIVE
+                </div>
+                <nav class="nav-stats">
+                    <div class="stat">
+                        <span class="stat-number" id="totalJobs">0</span>
+                        <span class="stat-label">Jobs Found</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="lastUpdated">--</span>
+                        <span class="stat-label">Last Updated</span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search & Filters -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-bar">
+                <div class="search-input-wrapper">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Search jobs by title, company, or keyword..." autocomplete="off">
+                    <button id="clearSearch" class="clear-btn" style="display:none;">✕</button>
+                </div>
+                <button id="searchBtn" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                    </svg>
+                    Search
+                </button>
+            </div>
+            <div class="filters">
+                <div class="filter-group">
+                    <label>Category</label>
+                    <select id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="software">🖥️ Software</option>
+                        <option value="hardware">🔧 Hardware</option>
+                        <option value="devops">☁️ DevOps & Cloud</option>
+                        <option value="data">📊 Data & AI</option>
+                        <option value="security">🔒 Cybersecurity</option>
+                        <option value="mobile">📱 Mobile</option>
+                        <option value="design">🎨 Design</option>
+                        <option value="management">📋 Management</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Job Type</label>
+                    <select id="typeFilter">
+                        <option value="all">All Types</option>
+                        <option value="full-time">Full-time</option>
+                        <option value="part-time">Part-time</option>
+                        <option value="contract">Contract</option>
+                        <option value="freelance">Freelance</option>
+                        <option value="internship">Internship</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Experience</label>
+                    <select id="expFilter">
+                        <option value="all">All Levels</option>
+                        <option value="entry">Entry Level</option>
+                        <option value="mid">Mid Level</option>
+                        <option value="senior">Senior Level</option>
+                        <option value="lead">Lead / Manager</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Work Mode</label>
+                    <select id="remoteFilter">
+                        <option value="all">All</option>
+                        <option value="remote">🌍 Remote</option>
+                        <option value="onsite">🏢 On-site</option>
+                        <option value="hybrid">🔄 Hybrid</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <div class="spinner"></div>
+                <p>Fetching live jobs...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="error-state" style="display:none;">
+                <span class="error-icon">⚠️</span>
+                <p id="errorMessage">Failed to load jobs. Retrying...</p>
+                <button class="btn btn-primary" onclick="fetchJobs()">Retry Now</button>
+            </div>
+
+            <!-- Jobs Grid -->
+            <div id="jobsContainer" class="jobs-grid"></div>
+
+            <!-- No Results -->
+            <div id="noResults" class="no-results" style="display:none;">
+                <span class="no-results-icon">🔍</span>
+                <h3>No jobs found</h3>
+                <p>Try adjusting your search or filters</p>
+            </div>
+
+            <!-- Auto-refresh Banner -->
+            <div class="refresh-banner" id="refreshBanner">
+                <span class="refresh-icon">🔄</span>
+                Auto-refreshing every 5 minutes
+                <span class="countdown" id="countdown">5:00</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Job Detail Modal -->
+    <div id="jobModal" class="modal" style="display:none;">
+        <div class="modal-overlay" onclick="closeModal()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>JobHunt — Live job listings powered by multiple APIs | Auto-refreshes every 5 minutes</p>
+            <p class="footer-sub">Data sourced from Jobicy, Remotive, Arbeitnow & more</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
