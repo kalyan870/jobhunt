@@ -1,119 +1,124 @@
 # Job Hunt Website
 
-A modern and responsive **Job Hunt Web Application** designed to make discovering and exploring job opportunities simple, organized, and intuitive.
+A modern and responsive **Job Hunt Web Application** designed to help users discover, explore, and manage job opportunities through a clean and intuitive interface.
 
 ## Live Demo
 
 [View Live Website](https://job-hunt-website-eight.vercel.app/)
 
-## Overview
+---
 
-<p align="center">
-  <img src="assets/overview.png" alt="Job Hunt Website Overview" width="100%">
-</p>
+## Project Overview
 
-**Job Hunt Website** is a modern web application built to provide a clean and efficient job-search experience. Users can explore job opportunities, search for relevant positions, view job details, and discover opportunities through an intuitive and responsive interface.
+A modern job-search platform focused on providing a simple, organized, and responsive experience for discovering job opportunities.
 
-The project focuses on creating a professional user experience while demonstrating modern frontend development, responsive design, component-based architecture, and production deployment.
+### Overview Image
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/c946828f-3de1-4ffa-b001-393dd6a938ff" />
+
+
+<br>
+
+<br>
+
+<br>
+
+---
 
 ## Key Features
 
 * Search and explore job opportunities
-* Browse featured and available jobs
+* Browse available job listings
 * View detailed job information
 * Search and filter job listings
 * Responsive design for desktop, tablet, and mobile
 * Clean and modern user interface
 * Intuitive navigation
-* Job discovery across different categories
-* Production deployment with Vercel
+* Organized job discovery experience
+* Mobile-friendly layout
+* Fast and responsive interface
+
+---
 
 ## Tech Stack
 
-* HTML
-* CSS
+* HTML5
+* CSS3
 * JavaScript
-* Modern Frontend Development
 * Git & GitHub
 * Vercel
 
-> Add React, Tailwind CSS, TypeScript, or other technologies here if they are actually used in the project.
+---
 
 ## Project Structure
 
 ```text
-job-hunt-website/
-├── public/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── assets/
-│   └── ...
-├── package.json
+jobhunt/
 ├── README.md
-└── ...
+├── LICENSE
+├── .gitignore
+├── index.html
+├── app.js
+├── style.css
+└── assets/
+    └── overview.png
 ```
+
+---
 
 ## Getting Started
 
-### 1. Clone the repository
+### Clone the Repository
 
 ```bash
 git clone <your-github-repository-url>
-cd job-hunt-website
+cd jobhunt
 ```
 
-### 2. Install dependencies
+### Run the Project
 
-```bash
-npm install
-```
+Since this is a frontend web project, you can open `index.html` directly in your browser.
 
-### 3. Start the development server
+Alternatively, use a local development server such as VS Code Live Server.
 
-```bash
-npm run dev
-```
-
-Open the local URL displayed in your terminal.
-
-### 4. Build for production
-
-```bash
-npm run build
-```
+---
 
 ## Deployment
 
-The application is deployed on **Vercel**.
+The project is deployed using **Vercel**.
 
 **Live Demo:**
 https://job-hunt-website-eight.vercel.app/
+
+---
 
 ## Future Enhancements
 
 * User authentication
 * Job bookmarking
 * Application tracking
-* Advanced job filters
+* Advanced job filtering
 * Resume upload and management
 * Personalized job recommendations
 * AI-powered job matching
 * Backend and database integration
-* Employer/job posting dashboard
+* Employer dashboard
+* Job posting functionality
+
+---
 
 ## Learning Outcomes
 
 This project helped strengthen practical experience in:
 
 * Responsive web development
-* Frontend architecture
-* UI/UX implementation
-* Component-based development
-* Search and filtering interfaces
+* Frontend UI/UX design
+* JavaScript-based interactions
+* Building real-world web interfaces
 * Git and GitHub workflows
-* Production deployment
-* Building real-world web applications
+* Project deployment with Vercel
+* Creating responsive layouts for multiple devices
+
+---
 
 ## Author
 
@@ -127,5 +132,5 @@ Computer Science Student | AI & Software Development
 ---
 
 <p align="center">
-  <b>Built with a focus on clean design, usability, and modern web development.</b>
+  Built with a focus on clean design, usability, and modern web development.
 </p>
