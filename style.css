@@ -354,6 +354,11 @@ body {
     box-shadow: var(--shadow-glow);
 }
 
+.job-card:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 3px;
+}
+
 .job-card:hover::before { opacity: 1; }
 
 .job-card.new-job {

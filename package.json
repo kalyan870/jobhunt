@@ -1,0 +1,10 @@
+{
+  "name": "jobhunt-live-job-board",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}
