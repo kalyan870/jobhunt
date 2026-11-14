@@ -196,7 +196,7 @@ function normalizeJob(raw) {
         salary: raw.salary || null,
         description: truncate(raw.description || '', 300),
         fullDescription: raw.description || '',
-        url: raw.url || '#',
+        url: safeJobUrl(raw.url),
         posted: raw.posted || new Date().toISOString(),
         source: raw.source || 'Unknown',
         category: raw.category || 'software',
@@ -207,10 +207,18 @@ function normalizeJob(raw) {
     };
 }
 
+function safeJobUrl(value) {
+    try {
+        const url = new URL(String(value || ''));
+        return url.protocol === 'https:' ? url.href : '#';
+    } catch {
+        return '#';
+    }
+}
+
 function stripHtml(html) {
-    const tmp = document.createElement('div');
-    tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || '';
+    const parsed = new DOMParser().parseFromString(String(html || ''), 'text/html');
+    return parsed.body.textContent || '';
 }
 
 function truncate(str, len) {
@@ -283,7 +291,7 @@ function extractCompanyFromHN(title) {
 
 function formatSalary(salary) {
     if (!salary) return '<span class="salary unknown">Not specified</span>';
-    return `<span class="salary">${salary}</span>`;
+    return `<span class="salary">${escapeHtml(salary)}</span>`;
 }
 
 function timeAgo(dateStr) {
@@ -327,7 +335,7 @@ function renderJobs(jobs) {
     noResults.style.display = 'none';
 
     container.innerHTML = jobs.map(job => `
-        <div class="job-card ${job.isNew ? 'new-job' : ''}" onclick="openModal('${job.id.replace(/'/g, "\\'")}')">
+        <div class="job-card ${job.isNew ? 'new-job' : ''}" tabindex="0" role="button" data-job-id="${escapeHtml(job.id)}">
             <div class="card-header">
                 <div class="company-logo">${getCompanyEmoji(job.category)}</div>
                 <div class="card-header-text">
@@ -336,15 +344,15 @@ function renderJobs(jobs) {
                 </div>
             </div>
             <div class="job-tags">
-                <span class="tag tag-category">${job.category}</span>
-                <span class="tag tag-type">${job.type.replace('-', ' ')}</span>
-                <span class="tag tag-remote">${job.remote}</span>
+                <span class="tag tag-category">${escapeHtml(job.category)}</span>
+                <span class="tag tag-type">${escapeHtml(job.type.replace('-', ' '))}</span>
+                <span class="tag tag-remote">${escapeHtml(job.remote)}</span>
                 ${job.isNew ? '<span class="tag tag-new">🔥 NEW</span>' : ''}
             </div>
             <div class="job-description">${escapeHtml(job.description)}</div>
             <div class="card-footer">
                 <div>${formatSalary(job.salary)}</div>
-                <span class="posted-date">${timeAgo(job.posted)} • ${job.source}</span>
+                <span class="posted-date">${escapeHtml(timeAgo(job.posted))} • ${escapeHtml(job.source)}</span>
             </div>
         </div>
     `).join('');
@@ -352,7 +360,7 @@ function renderJobs(jobs) {
 
 function escapeHtml(str) {
     const div = document.createElement('div');
-    div.textContent = str;
+    div.textContent = String(str ?? '');
     return div.innerHTML;
 }
 
@@ -393,11 +401,11 @@ function openModal(jobId) {
                 <strong>Company:</strong> ${escapeHtml(job.company)}<br>
                 <strong>Location:</strong> ${escapeHtml(job.location)}<br>
                 <strong>Posted:</strong> ${timeAgo(job.posted)}<br>
-                <strong>Source:</strong> ${job.source}
-                ${job.tags.length ? `<br><strong>Tags:</strong> ${job.tags.slice(0, 10).join(', ')}` : ''}
+                <strong>Source:</strong> ${escapeHtml(job.source)}
+                ${job.tags.length ? `<br><strong>Tags:</strong> ${job.tags.slice(0, 10).map(escapeHtml).join(', ')}` : ''}
             </p>
         </div>
-        <a class="modal-apply-btn" href="${escapeHtml(job.url)}" target="_blank" rel="noopener">
+        <a class="modal-apply-btn" href="${escapeHtml(safeJobUrl(job.url))}" target="_blank" rel="noopener noreferrer">
             Apply Now →
         </a>
     `;
@@ -521,6 +529,19 @@ function resetCountdown() {
 // ===== Event Listeners =====
 
 document.addEventListener('DOMContentLoaded', () => {
+    const jobsContainer = document.getElementById('jobsContainer');
+    jobsContainer.addEventListener('click', (event) => {
+        const card = event.target.closest('.job-card[data-job-id]');
+        if (card) openModal(card.dataset.jobId);
+    });
+    jobsContainer.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        const card = event.target.closest('.job-card[data-job-id]');
+        if (!card) return;
+        event.preventDefault();
+        openModal(card.dataset.jobId);
+    });
+
     // Search
     const searchInput = document.getElementById('searchInput');
     const clearBtn = document.getElementById('clearSearch');

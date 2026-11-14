@@ -89,6 +89,10 @@ The project is deployed using **Vercel**.
 **Live Demo:**
 https://job-hunt-website-eight.vercel.app/
 
+## Safety checks
+
+Job listings come from third-party feeds and can contain malformed content. The UI escapes listing text, rejects non-HTTPS application links, and opens external apply links with `noopener noreferrer`. Run `npm test` for the feed-data rendering and URL checks.
+
 ---
 
 ## Future Enhancements
@@ -127,7 +131,7 @@ This project helped strengthen practical experience in:
 Computer Science Student | AI & Software Development
 
 * GitHub: https://github.com/kalyan870
-* Portfolio: https://kalyan-portfolio-one.vercel.app/
+* Portfolio: https://kalyannexus.vercel.app/
 
 ---
 
