@@ -131,7 +131,7 @@ This project helped strengthen practical experience in:
 Computer Science Student | AI & Software Development
 
 * GitHub: https://github.com/kalyan870
-* Portfolio: https://kalyan-portfolio-one.vercel.app/
+* Portfolio: https://kalyannexus.vercel.app/
 
 ---
 
