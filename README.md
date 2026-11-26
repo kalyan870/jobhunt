@@ -138,3 +138,10 @@ Computer Science Student | AI & Software Development
 <p align="center">
   Built with a focus on clean design, usability, and modern web development.
 </p>
+
+## Architecture
+
+
+![jobhunt architecture map](docs/images/jobhunt-architecture.png)
+
+[Architecture notes](docs/architecture.md) · [Editable SVG](docs/images/jobhunt-architecture.svg)
